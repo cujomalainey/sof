@@ -11,6 +11,7 @@
 #include <sof/audio/format.h>
 #include <sof/math/decibels.h>
 #include <sof/math/numbers.h>
+#include <sof/math/trig.h>
 #include <stdint.h>
 
 #if DRC_GENERIC
@@ -168,7 +169,7 @@ void drc_update_envelope(struct drc_state *state, const struct sof_drc_params *p
 	/* Calculate desired gain */
 
 	/* Pre-warp so we get desired_gain after sin() warp below. */
-	int32_t scaled_desired_gain = drc_asin_fixed(state->detector_average); /* Q2.30 */
+	int32_t scaled_desired_gain = asin_fixed_32b(state->detector_average); /* Q2.30 */
 
 	/* Deal with envelopes */
 
