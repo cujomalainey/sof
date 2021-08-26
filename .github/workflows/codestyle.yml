@@ -16,7 +16,7 @@ on: [pull_request]
 
 jobs:
   checkpatch:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     env:
       PR_NUM: ${{github.event.number}}
       # TODO: reduce duplication with scripts/sof-*-commit-hook.sh
@@ -55,3 +55,20 @@ jobs:
 
       - name: run yamllint
         run: yamllint --strict .github/workflows/*.yml
+
+  cppcheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: install cppcheck
+        run: sudo apt-get -y install cppcheck
+
+      - name: get cppcheck version
+        run: echo $(cppcheck --version)
+
+      - name: run cppcheck
+        run: cppcheck --platform=unix32 --force  -j $(nproc) --inconclusive -q
+             --inline-suppr --suppress=variableScope --suppress=unusedFunction
+             -isrc/arch/xtensa -Isrc/include --std=c89 -itest
+             --error-exitcode=1 src/
