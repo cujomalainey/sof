@@ -677,9 +677,10 @@ static int google_rtc_audio_processing_copy(struct comp_dev *dev)
 			++cd->output_buffer_frame_index;
 
 			if (cd->raw_mic_buffer_frame_index == cd->num_frames) {
-				GoogleRtcAudioProcessingProcessCapture_int16(cd->state,
-									     cd->raw_mic_buffer,
-									     cd->output_buffer);
+				/* GoogleRtcAudioProcessingProcessCapture_int16(cd->state, */
+				/* 					     cd->raw_mic_buffer, */
+				/* 					     cd->output_buffer); */
+				memcpy(cd->output_buffer, cd->raw_mic_buffer, sizeof(int16_t) * CONFIG_COMP_GOOGLE_RTC_AUDIO_PROCESSING_NUM_CHANNELS * cd->num_frames);
 				cd->output_buffer_frame_index = 0;
 				cd->raw_mic_buffer_frame_index = 0;
 			}

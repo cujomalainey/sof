@@ -44,7 +44,7 @@
 #define SRAM_STREAM_SIZE		0x1000
 
 /* Stack configuration */
-#define SOF_STACK_SIZE			0x1000
+#define SOF_STACK_SIZE			0x3000
 
 #define PLATFORM_HEAP_SYSTEM		CONFIG_CORE_COUNT /* one per core */
 #define PLATFORM_HEAP_SYSTEM_RUNTIME	CONFIG_CORE_COUNT /* one per core */
